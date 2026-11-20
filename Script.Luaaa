@@ -1,0 +1,31 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local infinite_hunger = true
+local infinite_thirst = true
+
+local function loopStats()
+    while infinite_hunger or infinite_thirst do
+        local char = LocalPlayer.Character
+
+        if char then
+            for _, v in pairs(char:GetChildren()) do
+                local name = v.Name:lower()
+
+                if v:IsA("NumberValue") then
+                    if name:find("hunger") and infinite_hunger then
+                        v.Value = 100
+                    end
+
+                    if name:find("thirst") and infinite_thirst then
+                        v.Value = 100
+                    end
+                end
+            end
+        end
+
+        task.wait(0.1)
+    end
+end
+
+task.spawn(loopStats)
